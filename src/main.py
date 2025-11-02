@@ -14,6 +14,9 @@ def main():
     for [wordform, count] in df.filter(polars.col("count") >= 10).iter_rows(): # pyright: ignore[reportAny]
         print(f"A noun '{wordform}' is used {count} times")
 
+    freq_words = df.filter(polars.col("count") >= 10).to_dict()["書字形（＝表層形）"]
+    answer = ", ".join(freq_words)
+    print(f"Frequent nouns: {answer}")
 
 if __name__ == "__main__":
     main()
