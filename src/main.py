@@ -10,7 +10,8 @@ def main():
         .sort(by=polars.col("count"), descending=True)
         .collect()
     )
-    for [wordform, count] in df.head(10).iter_rows():
+
+    for [wordform, count] in df.filter(polars.col("count") >= 10).iter_rows(): # pyright: ignore[reportAny]
         print(f"A noun '{wordform}' is used {count} times")
 
 
